@@ -13,7 +13,7 @@ namespace InvestmentCalculator.Controllers
     public class InvestmentController : ControllerBase
     {
 
-        // POST api/values
+        // Api for monthly expected payment
         [HttpPost]
         [Route("GetMontlyPayment")]
         public Object GetMontlyPayment(InputModel input)
@@ -39,7 +39,7 @@ namespace InvestmentCalculator.Controllers
         }
 
 
-        // POST api/values
+        // Api for Total Investment for one Month
         [HttpPost]
         [Route("GetCompleteInvestment")]
         public Object GetCompleteInvestment(InputModel input)
@@ -85,7 +85,7 @@ namespace InvestmentCalculator.Controllers
 
         }
 
-        // POST api/values
+        // Api for Total Investment for specified duration
         [HttpPost]
         [Route("GetTotalInvestment")]
         public Object GetTotalInvestment(InputModel input)
@@ -149,6 +149,8 @@ namespace InvestmentCalculator.Controllers
             return totalOutput;
 
         }
+
+        //Utility Method
         private double calculateMonthlyBalance(double monthSubscription, int tenor, double rate, double balance )
         {
             double interestEarned = calculateMonthlyInterest( monthSubscription,  rate,  balance);
@@ -158,6 +160,7 @@ namespace InvestmentCalculator.Controllers
 
         }
 
+        //Utility Method
         private double calculateMonthlyInterest(double monthSubscription,  double rate, double balance)
         {
 
