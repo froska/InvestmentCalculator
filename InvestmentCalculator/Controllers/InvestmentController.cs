@@ -18,13 +18,13 @@ namespace InvestmentCalculator.Controllers
         [Route("GetMontlyPayment")]
         public Object GetMontlyPayment(InputModel input)
         {
-            double monthSubscription = input.subscription;
-            double rate = input.rate;
+            decimal monthSubscription = input.subscription;
+            decimal rate = input.rate;
             int tenor = input.months;
-            double balance = input.balance;
-           double interestEarned = calculateMonthlyInterest(monthSubscription, rate, balance);
+            decimal balance = input.balance;
+           decimal interestEarned = calculateMonthlyInterest(monthSubscription, rate, balance);
 
-            double expectedMonthly = calculateMonthlyBalance( monthSubscription,  tenor,  rate, balance);
+            decimal expectedMonthly = calculateMonthlyBalance( monthSubscription,  tenor,  rate, balance);
 
 
             return new
@@ -45,13 +45,13 @@ namespace InvestmentCalculator.Controllers
         public Object GetCompleteInvestment(InputModel input)
         {
             List<MonthlyOutputModel> completeInvest = new List<MonthlyOutputModel>();
-            double monthSubscription = input.subscription;
-            double rate = input.rate;
+            decimal monthSubscription = input.subscription+0.00m;
+            decimal rate = input.rate;
             int tenor = input.months;
-            double balance = input.balance;
-            double interestEarned =0.0;
+            decimal balance = input.balance + 0.00m;
+            decimal interestEarned =0.00m;
 
-            double expectedMonthly = 0.0;
+            decimal expectedMonthly = 0.00m;
 
 
             for (int i = 0; i < input.months; i++)
@@ -65,10 +65,10 @@ namespace InvestmentCalculator.Controllers
                  expectedMonthly = calculateMonthlyBalance(monthSubscription, tenor, rate, balance);
               
                     MonthlyOutputModel investment = new MonthlyOutputModel(){
-                         balance= balance,
-                        subscription = monthSubscription,
-                        interestEarned = interestEarned,
-                        closingBalance = expectedMonthly
+                         balance= Math.Round(balance, 2),
+                        subscription = Math.Round(monthSubscription, 2),
+                        interestEarned = Math.Round(interestEarned,2),
+                        closingBalance = Math.Round(expectedMonthly,2)
 
 
                     };
@@ -91,15 +91,15 @@ namespace InvestmentCalculator.Controllers
         public Object GetTotalInvestment(InputModel input)
         {
             List<MonthlyOutputModel> completeInvest = new List<MonthlyOutputModel>();
-            double monthSubscription = input.subscription;
-            double rate = input.rate;
+            decimal monthSubscription = input.subscription;
+            decimal rate = input.rate;
             int tenor = input.months;
-            double balance = input.balance;
-            double interestEarned = 0.0;
-            double expectedMonthly = 0.0;
-            double TotalSubscription = 0.0;
-            double TotalInterest = 0.0;
-             double TotalInvestment = 0.0;
+            decimal balance = input.balance;
+            decimal interestEarned = 0.00m;
+            decimal expectedMonthly = 0.00m;
+            decimal TotalSubscription = 0.00m;
+            decimal TotalInterest = 0.00m;
+             decimal TotalInvestment = 0.00m;
 
 
             for (int i = 0; i < input.months; i++)
@@ -140,9 +140,9 @@ namespace InvestmentCalculator.Controllers
             TotalInvestment = TotalSubscription + TotalInterest;
             TotalOutputModel totalOutput = new TotalOutputModel()
             {
-                TotalSubscription = TotalSubscription,
-                TotalInterest = TotalInterest,
-                TotalInvestment = TotalInvestment
+                TotalSubscription = Math.Round(TotalSubscription,2),
+                TotalInterest = Math.Round(TotalInterest,2),
+                TotalInvestment = Math.Round(TotalInvestment,2)
 
             };
 
@@ -151,20 +151,20 @@ namespace InvestmentCalculator.Controllers
         }
 
         //Utility Method
-        private double calculateMonthlyBalance(double monthSubscription, int tenor, double rate, double balance )
+        private decimal calculateMonthlyBalance(decimal monthSubscription, int tenor, decimal rate, decimal balance )
         {
-            double interestEarned = calculateMonthlyInterest( monthSubscription,  rate,  balance);
-            double monthlyBalance = Math.Round((balance + monthSubscription + interestEarned),2);
+            decimal interestEarned = calculateMonthlyInterest( monthSubscription,  rate,  balance);
+            decimal monthlyBalance = (balance + monthSubscription + interestEarned);
 
             return monthlyBalance;
 
         }
 
         //Utility Method
-        private double calculateMonthlyInterest(double monthSubscription,  double rate, double balance)
+        private decimal calculateMonthlyInterest(decimal monthSubscription,  decimal rate, decimal balance)
         {
 
-            double interestEarned = Math.Round((monthSubscription +balance) *(rate / 12),2);
+            decimal interestEarned = (monthSubscription +balance) *(rate / 12);
 
             return interestEarned;
 

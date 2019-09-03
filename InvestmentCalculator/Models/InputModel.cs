@@ -7,10 +7,10 @@ namespace InvestmentCalculator.Models
 {
     public class InputModel
     {
-        public double balance { get; set; }
-        public double subscription { get; set; }
+        public decimal balance { get; set; }
+        public decimal subscription { get; set; }
         public int months { get; set; }
-        public double rate { get; set; }
+        public decimal rate { get; set; }
 
     }
 }
