@@ -42,7 +42,7 @@ namespace InvestmentCalculator.Controllers
         // Api for Total Investment for one Month
         [HttpPost]
         [Route("GetCompleteInvestment")]
-        public Object GetCompleteInvestment(InputModel input)
+        public IEnumerable<MonthlyOutputModel> GetCompleteInvestment(InputModel input)
         {
             List<MonthlyOutputModel> completeInvest = new List<MonthlyOutputModel>();
             decimal monthSubscription = input.subscription+0.00m;
@@ -164,7 +164,7 @@ namespace InvestmentCalculator.Controllers
         private decimal calculateMonthlyInterest(decimal monthSubscription,  decimal rate, decimal balance)
         {
 
-            decimal interestEarned = (monthSubscription +balance) *(rate / 12);
+            decimal interestEarned = (monthSubscription +balance) *((rate/100) / 12);
 
             return interestEarned;
 

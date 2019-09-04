@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace InvestmentCalculator.Models
 {
-    public class ApplicationSettings
+    public class LoginModel
     {
-        public string Client_URL { get; set; }
-        public string JWT_Secret { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }
